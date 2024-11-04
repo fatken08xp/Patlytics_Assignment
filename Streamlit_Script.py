@@ -109,8 +109,8 @@ if st.button("Check Infringement") and patent_id and company_name:
             f"Include:\n- Infringement likelihood\n- Relevant claims\n"
             f"- Explanation of why these claims may be relevant to each product's features\n"
         )
-        response = openai.ChatCompletion.create(
-            model="gpt-4o-mini",
+        response = openai.chat_completions.create(
+            model="gpt-4",
             messages=[{"role": "user", "content": prompt}],
             max_tokens=5000,
             temperature=0.3
