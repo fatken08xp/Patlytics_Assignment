@@ -11,8 +11,8 @@ def load_json(file_path):
         return json.load(f)
 
 
-patent_data = load_json('/Users/kengai/Downloads/patents.json')
-company_data = load_json('/Users/kengai/Downloads/company_products.json')
+patent_data = load_json('patents.json')
+company_data = load_json('company_products.json')
 patent_id = st.text_input('Please enter Patent ID')
 company_name = st.text_input('Please enter Company Name')
 # Define the load_reports function
