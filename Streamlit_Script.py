@@ -1,10 +1,9 @@
 import os
-import openai
 import streamlit as st
 import json
 from datetime import datetime
 from rapidfuzz import process
-
+from openai import OpenAI
 # Load JSON data
 def load_json(file_path):
     with open(file_path) as f:
@@ -109,15 +108,22 @@ if st.button("Check Infringement") and patent_id and company_name:
             f"Include:\n- Infringement likelihood\n- Relevant claims\n"
             f"- Explanation of why these claims may be relevant to each product's features\n"
         )
-        response = openai.ChatCompletion.create(
-            model="gpt-4",
-            messages=[{"role": "user", "content": prompt}],
-            max_tokens=5000,
-            temperature=0.3
+
+        chat_completion = client.chat.completions.create(
+            messages=[
+                {
+                    "role": "user",
+                    "content": prompt,
+                    max_tokens=5000,
+                    temperature=0.3
+                }
+            ],
+            model="gpt-4o-mini",
         )
 
+        
         # Extract and print the generated response
-        generated_text = response["choices"][0]["message"]["content"]
+        generated_text = chat_completion["choices"][0]["message"]["content"]
 
         # Display results
         analysis_date = datetime.now().strftime("%Y-%m-%d")
