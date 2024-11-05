@@ -1,11 +1,12 @@
 import os
 import streamlit as st
 import json
+import requests
 from openai import OpenAI
 from datetime import datetime
 from rapidfuzz import process
-from dotenv import load_dotenv
-load_dotenv()
+
+OPENAI_API_KEY = os.environ['OPENAI_API_KEY']
 
 # Load JSON data
 def load_json(file_path):
@@ -80,8 +81,6 @@ def find_patent_and_id(patent_id, company_name):
         return None, company, None
 
     return patent, company, get_id_by_publication_number(patent["publication_number"])
-
-
 
 
 if st.button("Check Infringement") and patent_id and company_name:
