@@ -15,11 +15,74 @@ patent_data = load_json('patents.json')
 company_data = load_json('company_products.json')
 patent_id = st.text_input('Please enter Patent ID')
 company_name = st.text_input('Please enter Company Name')
+# Define the load_reports function
+def load_reports():
+    try:
+        with open('saved_reports.json') as f:
+            try:
+                return json.load(f)
+            except json.JSONDecodeError:
+                return []  # Return an empty list if the file is empty or contains invalid JSON
+    except FileNotFoundError:
+        return []  # Return an empty list if the file does not exist
+
+# Define the save_report function
+def save_report(report):
+    reports = load_reports()
+    reports.append(report)
+    with open('saved_reports.json', 'w') as f:
+        json.dump(reports, f, indent=4)
+
+def fuzzy_search(query, choices):
+    # Extract the best match, which includes match, score, and index
+    result = process.extractOne(query, choices)
+    if result:
+        best_match, score, _ = result  # Unpack match, score, ignore index
+        return best_match, score
+    return None, 0  # Return None if no match is found
+
+# Helper function to find patent by ID with fuzzy matching
+def find_patent_by_id(patent_id):
+    patent_ids = [p["publication_number"] for p in patent_data]
+    best_match, score = fuzzy_search(patent_id, patent_ids)
+    return next((p for p in patent_data if p["publication_number"] == best_match), None)
+
+# Helper function to find company by name with fuzzy matching
+def find_company_by_name(company_name):
+    company_names = [c["name"] for c in company_data["companies"]]
+    best_match, score = fuzzy_search(company_name, company_names)
+    return next((c for c in company_data["companies"] if c["name"] == best_match), None)
+
+# Function to find "id" using the publication number (patent_id)
+def get_id_by_publication_number(publication_number):
+    # Search for a patent with the specified publication number
+    patent = next((p for p in patent_data if p["publication_number"] == publication_number), None)
+    if patent:
+        return patent["id"]  # Return the "id" if a match is found
+    return None  # Return None if no match is found
+
+# Enhanced function to find patent by ID or company name
+def find_patent_and_id(patent_id, company_name):
+    # First, try to find the company
+    company = find_company_by_name(company_name)
+    if not company:
+        return None, None, None
+
+    # If company is found, try to find the patent within the company's products
+    patent = find_patent_by_id(patent_id)
+    if not patent:
+        # If patent is not found, try to find a patent related to the company
+        for product in company["products"]:
+            potential_patent = find_patent_by_id(product["name"])
+            if potential_patent:
+                return potential_patent, company, get_id_by_publication_number(potential_patent["publication_number"])
+        return None, company, None
+
+    return patent, company, get_id_by_publication_number(patent["publication_number"])
 
 # Set OpenAI API key
 openai.api_key = openAiKey.OPENAI_API_KEY
 
-# Rest of your functions...
 
 if st.button("Check Infringement") and patent_id and company_name:
     patent, company, analysis_id = find_patent_and_id(patent_id, company_name)
@@ -70,3 +133,13 @@ if st.button("Check Infringement") and patent_id and company_name:
         if st.button("Save Report"):
             save_report(result)
             st.success("Report saved successfully!")
+
+        # Option to view previous reports
+        st.sidebar.title("Saved Reports")
+        if st.sidebar.button("Load Reports"):
+            saved_reports = load_reports()
+            if saved_reports:
+                for report in saved_reports:
+                    st.sidebar.write(report)
+            else:
+                st.sidebar.write("No saved reports found.")
