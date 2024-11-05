@@ -1,11 +1,10 @@
 import os
 import streamlit as st
 import json
-import openAiKey
 from openai import OpenAI
 from datetime import datetime
 from rapidfuzz import process
-
+from dotenv import load_dotenv
 
 # Load JSON data
 def load_json(file_path):
@@ -105,8 +104,7 @@ if st.button("Check Infringement") and patent_id and company_name:
             f"Include:\n- Infringement likelihood\n- Relevant claims\n"
             f"- Explanation of why these claims may be relevant to each product's features\n"
         )  
-        os.environ['OPENAI_API_KEY'] = "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"
-        openai.api_key = os.getenv('OPENAI_API_KEY')
+        api_key = os.getenv('OPENAI_API_KEY')
         client = OpenAI(api_key = openAiKey.OPENAI_API_KEY)
         
         chat_completion = client.chat.completions.create(
