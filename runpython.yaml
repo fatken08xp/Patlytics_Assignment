@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 
 env:
-  OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+  openai_api_key: ${{ secrets.OPENAI_API_KEY }}
 
 
 jobs:
