@@ -1,13 +1,12 @@
 import os
 import streamlit as st
 import json
-import requests
 from openai import OpenAI
 from datetime import datetime
 from rapidfuzz import process
 
 # Retrieve the API key from environment variables
-api_key = os.environ["openai_api_key"]
+api_key = os.environ["OPENAI_API_KEY"]
 
 # Load JSON data
 def load_json(file_path):
