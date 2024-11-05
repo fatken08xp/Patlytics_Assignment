@@ -80,9 +80,7 @@ def find_patent_and_id(patent_id, company_name):
 
     return patent, company, get_id_by_publication_number(patent["publication_number"])
 
-# Set OpenAI API key
-os.environ['OPENAI_API_KEY'] = openAiKey.OPENAI_API_KEY
-client = OpenAI()
+
 
 
 if st.button("Check Infringement") and patent_id and company_name:
@@ -96,6 +94,11 @@ if st.button("Check Infringement") and patent_id and company_name:
         claims = "\n".join(patent["claims"]) if isinstance(patent["claims"], list) else patent["claims"]
         products = "\n".join([f"{prod['name']}: {prod['description']}" for prod in company["products"]])
 
+        # Set OpenAI API key
+    os.environ['OPENAI_API_KEY'] = openAiKey.OPENAI_API_KEY
+    client = OpenAI()
+
+        
         # Define the prompt for OpenAI
         prompt = (
             f"Analyze potential patent infringement. Here is the patent information:\n"
