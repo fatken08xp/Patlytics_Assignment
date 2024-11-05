@@ -2,7 +2,7 @@ import os
 import streamlit as st
 import json
 import openAiKey
-import 
+import openai
 from datetime import datetime
 from rapidfuzz import process
 
