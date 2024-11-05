@@ -96,8 +96,6 @@ if st.button("Check Infringement") and patent_id and company_name:
 
         # Set OpenAI API key
         os.environ['OPENAI_API_KEY'] = openAiKey.OPENAI_API_KEY
-        client = OpenAI()
-
         
         # Define the prompt for OpenAI
         prompt = (
