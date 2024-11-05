@@ -105,7 +105,7 @@ if st.button("Check Infringement") and patent_id and company_name:
             f"- Explanation of why these claims may be relevant to each product's features\n"
         )  
 
-        api_key = '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'
+        api_key = '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'
         client = OpenAI()
         
         chat_completion = client.chat.completions.create(
