@@ -103,10 +103,10 @@ if st.button("Check Infringement") and patent_id and company_name:
             f"Include:\n- Infringement likelihood\n- Relevant claims\n"
             f"- Explanation of why these claims may be relevant to each product's features\n"
         )    
-        client = AsyncOpenAI(
+        client = OpenAI(
           api_key = "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",  # this is also the default, it can be omitted
         )        
-        completion = await client.chat.completions.create(
+        completion = client.completions.create(
             model="gpt-4",
             messages=[
                 {
