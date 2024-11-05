@@ -6,7 +6,7 @@ from datetime import datetime
 from rapidfuzz import process
 from dotenv import load_dotenv
 load_dotenv()
-print(f"Your API key is: {api_key}")
+
 # Load JSON data
 def load_json(file_path):
     with open(file_path) as f:
@@ -106,6 +106,7 @@ if st.button("Check Infringement") and patent_id and company_name:
             f"- Explanation of why these claims may be relevant to each product's features\n"
         )  
         api_key = os.getenv('OPENAI_API_KEY')
+        print(f"Your API key is: {api_key}")
         client = OpenAI()
         
         chat_completion = client.chat.completions.create(
