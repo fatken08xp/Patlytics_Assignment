@@ -2,7 +2,7 @@ import os
 import streamlit as st
 import json
 import openAiKey
-import openai
+import 
 from datetime import datetime
 from rapidfuzz import process
 
@@ -86,10 +86,6 @@ st.title("Mini Patent Infringement Check Application")
 OPENAI_API_KEY = openAiKey.OPENAI_API_KEY
 os.environ['OPENAI_API_KEY'] = OPENAI_API_KEY
 
-client = OpenAI(
-    api_key=os.environ.get("OPENAI_API_KEY"),
-)
-
 if st.button("Check Infringement") and patent_id and company_name:
     patent, company, analysis_id = find_patent_and_id(patent_id, company_name)
 
@@ -112,7 +108,7 @@ if st.button("Check Infringement") and patent_id and company_name:
             f"Include:\n- Infringement likelihood\n- Relevant claims\n"
             f"- Explanation of why these claims may be relevant to each product's features\n"
         )       
-        response = client.chat.completions.create(
+        response = openai.chat.completions.create(
             model="gpt-4",
             messages=[{"role": "user", "content": prompt}],
             max_tokens=5000,
