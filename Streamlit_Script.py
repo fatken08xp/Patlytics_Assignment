@@ -110,15 +110,16 @@ if st.button("Check Infringement") and patent_id and company_name:
             f"Include:\n- Infringement likelihood\n- Relevant claims\n"
             f"- Explanation of why these claims may be relevant to each product's features\n"
         )            
-        completion = client.completions.create(
-            model="gpt-4o-mini",
-            prompt = prompt ,
+        
+        chat_completion = client.chat.completions.create(
+            model="gpt-4",
+            messages=[{"role": "user", "content": prompt}],
             max_tokens=5000,
             temperature=0.3
         )
 
         # Extract and display the generated response
-        generated_text = completion["choices"][0]["message"]["content"]
+        generated_text = chat_completion["choices"][0]["message"]["content"]
 
         # Display results
         analysis_date = datetime.now().strftime("%Y-%m-%d")
