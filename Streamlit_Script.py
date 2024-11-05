@@ -6,7 +6,6 @@ from openai import OpenAI
 from datetime import datetime
 from rapidfuzz import process
 
-client = OpenAI()
 
 # Load JSON data
 def load_json(file_path):
@@ -97,8 +96,9 @@ if st.button("Check Infringement") and patent_id and company_name:
         products = "\n".join([f"{prod['name']}: {prod['description']}" for prod in company["products"]])
 
         # Set OpenAI API key
-        os.environ['OPENAI_API_KEY'] = openAiKey.OPENAI_API_KEY
-        
+        client = OpenAI(
+          api_key=os.environ['OPENAI_API_KEY'],  # this is also the default, it can be omitted
+        )
         # Define the prompt for OpenAI
         prompt = (
             f"Analyze potential patent infringement. Here is the patent information:\n"
