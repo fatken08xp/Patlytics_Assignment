@@ -6,6 +6,8 @@ from openai import OpenAI
 from datetime import datetime
 from rapidfuzz import process
 
+client = OpenAI()
+
 # Load JSON data
 def load_json(file_path):
     with open(file_path) as f:
@@ -108,7 +110,7 @@ if st.button("Check Infringement") and patent_id and company_name:
             f"Include:\n- Infringement likelihood\n- Relevant claims\n"
             f"- Explanation of why these claims may be relevant to each product's features\n"
         )            
-        chat_completion = client.chat.completions.create(
+        completion = client.completions.create(
             model="gpt-4",
             messages=[{"role": "user", "content": prompt}],
             max_tokens=5000,
@@ -116,7 +118,7 @@ if st.button("Check Infringement") and patent_id and company_name:
         )
 
         # Extract and display the generated response
-        generated_text = chat_completion["choices"][0]["message"]["content"]
+        generated_text = completion["choices"][0]["message"]["content"]
 
         # Display results
         analysis_date = datetime.now().strftime("%Y-%m-%d")
