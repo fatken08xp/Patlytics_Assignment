@@ -98,7 +98,7 @@ if st.button("Check Infringement") and patent_id and company_name:
     else:
         claims = "\n".join(patent["claims"]) if isinstance(patent["claims"], list) else patent["claims"]
         products = "\n".join([f"{prod['name']}: {prod['description']}" for prod in company["products"]])
-
+print(os.environ.get('OPENAI_API_KEY'))
         # Define the prompt for OpenAI
         prompt = (
             f"Analyze potential patent infringement. Here is the patent information:\n"
@@ -109,8 +109,7 @@ if st.button("Check Infringement") and patent_id and company_name:
             f"Identify the top two products that might infringe this patent. "
             f"Include:\n- Infringement likelihood\n- Relevant claims\n"
             f"- Explanation of why these claims may be relevant to each product's features\n"
-        )       
-print(os.environ.get('OPENAI_API_KEY'))        
+        )            
         chat_completion = client.chat.completions.create(
             model="gpt-4",
             messages=[{"role": "user", "content": prompt}],
