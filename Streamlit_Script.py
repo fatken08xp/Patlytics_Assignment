@@ -112,7 +112,7 @@ if st.button("Check Infringement") and patent_id and company_name:
         )            
         
         chat_completion = client.chat.completions.create(
-            model="gpt-4",
+            model="gpt-3.5",
             messages=[{"role": "user", "content": prompt}],
             max_tokens=5000,
             temperature=0.3
