@@ -1,7 +1,7 @@
 import os
 import streamlit as st
 import json
-import openAiKey
+import openAiKey.py
 from datetime import datetime
 from rapidfuzz import process
 from openai import OpenAI
