@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 
 env:
-  openai_api_key: ${{ secrets.OPENAI_API_KEY }}
+  OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
 
 
 jobs:
@@ -24,6 +24,7 @@ jobs:
       run: pip install -r requirements.txt
 
     - name: Run Python script
+      env:
+        OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}    
       run:
-        pip install requests
         python Streamlit_Script.py
