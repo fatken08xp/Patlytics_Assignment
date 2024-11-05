@@ -134,12 +134,12 @@ if st.button("Check Infringement") and patent_id and company_name:
             save_report(result)
             st.success("Report saved successfully!")
 
-        # Option to view previous reports
-        st.sidebar.title("Saved Reports")
-        if st.sidebar.button("Load Reports"):
-            saved_reports = load_reports()
-            if saved_reports:
-                for report in saved_reports:
-                    st.sidebar.write(report)
-            else:
-                st.sidebar.write("No saved reports found.")
+# Option to view previous reports
+st.sidebar.title("Saved Reports")
+if st.sidebar.button("Load Reports"):
+    saved_reports = load_reports()
+    if saved_reports:
+        for report in saved_reports:
+            st.sidebar.write(report)
+    else:
+        st.sidebar.write("No saved reports found.")
