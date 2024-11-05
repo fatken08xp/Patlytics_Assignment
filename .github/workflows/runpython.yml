@@ -3,7 +3,7 @@ name: Run Python Script with Secret
 on: [push]
 
 jobs:
-  build:
+  run-python:
     runs-on: ubuntu-latest
 
     steps:
