@@ -78,7 +78,8 @@ def find_patent_and_id(patent_id, company_name):
 st.title("Mini Patent Infringement Check Application")
 
 # Set OpenAI API key
-os.environ['OPENAI_API_KEY'] = "your_openai_api_key_here"
+
+os.environ['OPENAI_API_KEY'] = "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"
 openai.api_key = os.getenv('OPENAI_API_KEY')
 
 if st.button("Check Infringement") and patent_id and company_name:
