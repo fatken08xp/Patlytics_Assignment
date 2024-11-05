@@ -87,7 +87,7 @@ client = OpenAI(
     # This is the default and can be omitted
     api_key=os.environ.get("OPENAI_API_KEY"),
 )
-
+print(os.environ.get('OPENAI_API_KEY'))
 if st.button("Check Infringement") and patent_id and company_name:
     patent, company, analysis_id = find_patent_and_id(patent_id, company_name)
 
@@ -98,7 +98,7 @@ if st.button("Check Infringement") and patent_id and company_name:
     else:
         claims = "\n".join(patent["claims"]) if isinstance(patent["claims"], list) else patent["claims"]
         products = "\n".join([f"{prod['name']}: {prod['description']}" for prod in company["products"]])
-print(os.environ.get('OPENAI_API_KEY'))
+
         # Define the prompt for OpenAI
         prompt = (
             f"Analyze potential patent infringement. Here is the patent information:\n"
