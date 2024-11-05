@@ -1,6 +1,7 @@
 import os
 import streamlit as st
 import json
+import openAiKey
 from openai import OpenAI
 from datetime import datetime
 from rapidfuzz import process
@@ -105,8 +106,7 @@ if st.button("Check Infringement") and patent_id and company_name:
             f"- Explanation of why these claims may be relevant to each product's features\n"
         )  
 
-        api_key = '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'
-        client = OpenAI(api_key ='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')
+        client = OpenAI(api_key = )
         
         chat_completion = client.chat.completions.create(
             model="gpt-4o-mini",
