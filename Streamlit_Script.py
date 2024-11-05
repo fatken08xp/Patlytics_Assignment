@@ -115,8 +115,9 @@ if st.button("Check Infringement") and patent_id and company_name:
                     "role": "user",
                     "content": prompt,
                 },
-            temperature:=0.3
             ]
+            max_tokens=5000,
+            temperature=0.3
         )
         # Extract and display the generated response
         generated_text = chat_completion.choices[0]
