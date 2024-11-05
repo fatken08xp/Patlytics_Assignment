@@ -115,7 +115,7 @@ if st.button("Check Infringement") and patent_id and company_name:
         )
 
         # Extract and display the generated response
-        generated_text = completion["choices"][0]["message"]["content"]
+        generated_text = response["choices"][0]["message"]["content"]
 
         # Display results
         analysis_date = datetime.now().strftime("%Y-%m-%d")
