@@ -12,7 +12,6 @@ load_dotenv()
 
 # Retrieve the API key from environment variables
 api_key = os.getenv('OPENAI_API_KEY')
-OPENAI_API_KEY = os.environ['OPENAI_API_KEY']
 
 # Load JSON data
 def load_json(file_path):
