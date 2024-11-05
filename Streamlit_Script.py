@@ -12,6 +12,12 @@ load_dotenv()
 # Retrieve the API key from environment variables
 api_key = os.getenv('OPENAI_API_KEY')
 
+# Check if the API key is set
+if api_key:
+    print("API key is set.")
+else:
+    print("API key is not set.")
+
 # Load JSON data
 def load_json(file_path):
     with open(file_path) as f:
