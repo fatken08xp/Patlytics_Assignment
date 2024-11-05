@@ -108,7 +108,7 @@ if st.button("Check Infringement") and patent_id and company_name:
         api_key = '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'
         client = OpenAI()
         
-        response = client.chat.completions.create(
+        chat_completion = client.chat.completions.create(
             model="gpt-4",
             messages=[
                 {
@@ -118,7 +118,7 @@ if st.button("Check Infringement") and patent_id and company_name:
             ]
         )
         # Extract and display the generated response
-        generated_text = response["choices"][0]["message"]["content"]
+        generated_text = chat_completion["choices"][0]["message"]["content"]
 
         # Display results
         analysis_date = datetime.now().strftime("%Y-%m-%d")
