@@ -4,7 +4,8 @@ import json
 from openai import OpenAI
 from datetime import datetime
 from rapidfuzz import process
-
+from dotenv import load_dotenv
+load_dotenv()
 
 # Load JSON data
 def load_json(file_path):
