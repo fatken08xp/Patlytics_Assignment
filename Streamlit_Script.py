@@ -106,8 +106,7 @@ if st.button("Check Infringement") and patent_id and company_name:
             f"Identify the top two products that might infringe this patent. "
             f"Include:\n- Infringement likelihood\n- Relevant claims\n"
             f"- Explanation of why these claims may be relevant to each product's features\n"
-        )
-        client = OpenAI()        
+        )       
         completion = client.completions.create(
             model="gpt-4",
             messages=[{"role": "user", "content": prompt}],
