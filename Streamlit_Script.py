@@ -3,9 +3,6 @@ import streamlit as st
 import json
 import openAiKey
 from openai import OpenAI
-
-client = OpenAI()
-
 from datetime import datetime
 from rapidfuzz import process
 
