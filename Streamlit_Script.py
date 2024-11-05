@@ -111,8 +111,10 @@ if st.button("Check Infringement") and patent_id and company_name:
             f"- Explanation of why these claims may be relevant to each product's features\n"
         )            
         completion = client.completions.create(
-            model="gpt-4",
-            prompt =[{"role": "user", "content": prompt}]
+            model="gpt-4o-mini",
+            messages =[{"role": "user", "content": prompt}],
+            max_tokens=5000,
+            temperature=0.3
         )
 
         # Extract and display the generated response
