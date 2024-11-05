@@ -111,9 +111,9 @@ if st.button("Check Infringement") and patent_id and company_name:
             f"- Explanation of why these claims may be relevant to each product's features\n"
         )            
         
-        chat_completion = client.chat.completions.create(
-            model="gpt-3.5",
-            messages=[{"role": "user", "content": prompt}],
+        completion = client.completions.create(
+            model="gpt-4o-mini",
+            prompt=prompt,
             max_tokens=5000,
             temperature=0.3
         )
