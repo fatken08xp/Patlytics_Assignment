@@ -112,7 +112,7 @@ if st.button("Check Infringement") and patent_id and company_name:
         )            
         completion = client.completions.create(
             model="gpt-4",
-            messages=[{"role": "user", "content": prompt}]
+            prompt =[{"role": "user", "content": prompt}]
         )
 
         # Extract and display the generated response
