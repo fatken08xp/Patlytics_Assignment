@@ -1,19 +1,20 @@
 import os
+import openai
 import streamlit as st
 import json
 from datetime import datetime
 from rapidfuzz import process
-from openai import OpenAI
+
 # Load JSON data
 def load_json(file_path):
     with open(file_path) as f:
         return json.load(f)
 
-
 patent_data = load_json('patents.json')
 company_data = load_json('company_products.json')
 patent_id = st.text_input('Please enter Patent ID')
 company_name = st.text_input('Please enter Company Name')
+
 # Define the load_reports function
 def load_reports():
     try:
@@ -33,7 +34,6 @@ def save_report(report):
         json.dump(reports, f, indent=4)
 
 def fuzzy_search(query, choices):
-    # Extract the best match, which includes match, score, and index
     result = process.extractOne(query, choices)
     if result:
         best_match, score, _ = result  # Unpack match, score, ignore index
@@ -54,23 +54,19 @@ def find_company_by_name(company_name):
 
 # Function to find "id" using the publication number (patent_id)
 def get_id_by_publication_number(publication_number):
-    # Search for a patent with the specified publication number
     patent = next((p for p in patent_data if p["publication_number"] == publication_number), None)
     if patent:
-        return patent["id"]  # Return the "id" if a match is found
-    return None  # Return None if no match is found
+        return patent["id"]
+    return None
 
 # Enhanced function to find patent by ID or company name
 def find_patent_and_id(patent_id, company_name):
-    # First, try to find the company
     company = find_company_by_name(company_name)
     if not company:
         return None, None, None
 
-    # If company is found, try to find the patent within the company's products
     patent = find_patent_by_id(patent_id)
     if not patent:
-        # If patent is not found, try to find a patent related to the company
         for product in company["products"]:
             potential_patent = find_patent_by_id(product["name"])
             if potential_patent:
@@ -81,8 +77,8 @@ def find_patent_and_id(patent_id, company_name):
 
 st.title("Mini Patent Infringement Check Application")
 
-
-os.environ['OPENAI_API_KEY'] = "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"
+# Set OpenAI API key
+os.environ['OPENAI_API_KEY'] = "your_openai_api_key_here"
 openai.api_key = os.getenv('OPENAI_API_KEY')
 
 if st.button("Check Infringement") and patent_id and company_name:
@@ -93,7 +89,6 @@ if st.button("Check Infringement") and patent_id and company_name:
     elif not company:
         st.error(f"No close match found for Company '{company_name}'. Please try again.")
     else:
-        # Prepare data for GPT prompt
         claims = "\n".join(patent["claims"]) if isinstance(patent["claims"], list) else patent["claims"]
         products = "\n".join([f"{prod['name']}: {prod['description']}" for prod in company["products"]])
 
@@ -109,19 +104,15 @@ if st.button("Check Infringement") and patent_id and company_name:
             f"- Explanation of why these claims may be relevant to each product's features\n"
         )
 
-        chat_completion = client.chat.completions.create(
-            messages=[
-                {
-                    "role": "user",
-                    "content": prompt,
-                }
-            ],
-            model="gpt-4o-mini",
+        response = openai.ChatCompletion.create(
+            model="gpt-4",
+            messages=[{"role": "user", "content": prompt}],
+            max_tokens=5000,
+            temperature=0.3
         )
 
-        
-        # Extract and print the generated response
-        generated_text = chat_completion["choices"][0]["message"]["content"]
+        # Extract and display the generated response
+        generated_text = response["choices"][0]["message"]["content"]
 
         # Display results
         analysis_date = datetime.now().strftime("%Y-%m-%d")
