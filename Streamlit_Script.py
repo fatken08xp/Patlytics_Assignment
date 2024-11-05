@@ -115,8 +115,7 @@ if st.button("Check Infringement") and patent_id and company_name:
                     "role": "user",
                     "content": prompt,
                 },
-            max_tokens ==5000,
-            temperature==0.3
+            temperature=0.3
             ]
         )
         # Extract and display the generated response
