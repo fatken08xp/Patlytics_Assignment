@@ -95,8 +95,8 @@ if st.button("Check Infringement") and patent_id and company_name:
         products = "\n".join([f"{prod['name']}: {prod['description']}" for prod in company["products"]])
 
         # Set OpenAI API key
-    os.environ['OPENAI_API_KEY'] = openAiKey.OPENAI_API_KEY
-    client = OpenAI()
+        os.environ['OPENAI_API_KEY'] = openAiKey.OPENAI_API_KEY
+        client = OpenAI()
 
         
         # Define the prompt for OpenAI
