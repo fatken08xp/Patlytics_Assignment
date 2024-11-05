@@ -6,7 +6,7 @@ from datetime import datetime
 from rapidfuzz import process
 from dotenv import load_dotenv
 load_dotenv()
-
+print(f"Your API key is: {api_key}")
 # Load JSON data
 def load_json(file_path):
     with open(file_path) as f:
