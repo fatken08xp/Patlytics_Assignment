@@ -5,10 +5,7 @@ import requests
 from openai import OpenAI
 from datetime import datetime
 from rapidfuzz import process
-from dotenv import load_dotenv
 
-# Load environment variables from .env file
-load_dotenv()
 # Retrieve the API key from environment variables
 api_key = os.environ["openai_api_key"]
 
