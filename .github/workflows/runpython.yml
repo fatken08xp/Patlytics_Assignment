@@ -1,11 +1,12 @@
 name: Run Python Script with Secret
 
-on: [push]
-
+on: 
+  workflow_dispatch:
+env:
+  OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }} 
 jobs:
   run-python:
     runs-on: ubuntu-latest
-
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
@@ -18,8 +19,7 @@ jobs:
     - name: Install dependencies
       run: pip install -r requirements.txt
 
-    - name: Run Python script
-      env:
-        OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}    
+    - name: Run Python script   
       run:
+        pip install requests
         python Streamlit_Script.py
