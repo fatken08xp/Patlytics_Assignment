@@ -112,7 +112,7 @@ if st.button("Check Infringement") and patent_id and company_name:
         )            
         completion = client.completions.create(
             model="gpt-4o-mini",
-            messages =[{"role": "user", "content": prompt}],
+            prompt = prompt ,
             max_tokens=5000,
             temperature=0.3
         )
