@@ -8,6 +8,11 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+api_key =os.getenv('OPENAI_API_KEY')
+# Ensure the API key is loaded
+if not api_key:
+    raise ValueError("API key not found. Please set the OPENAI_API_KEY environment variable.")
+    
 # Load JSON data
 def load_json(file_path):
     with open(file_path) as f:
@@ -104,8 +109,6 @@ if st.button("Check Infringement") and patent_id and company_name:
             f"Include:\n- Infringement likelihood\n- Relevant claims\n"
             f"- Explanation of why these claims may be relevant to each product's features\n"
         )
-        
-        api_key =os.getenv('OPENAI_API_KEY')
         client = OpenAI()
         
         chat_completion = client.chat.completions.create(
