@@ -27,4 +27,4 @@ jobs:
     - name: Run Python script
       run:
         pip install requests
-        python Streamlit_Script.py
+        streamlit run Streamlit_Script.py
