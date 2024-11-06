@@ -1,6 +1,6 @@
 import os
 import streamlit as st
-import json]
+import json
 from openai import OpenAI
 from datetime import datetime
 from rapidfuzz import process
