@@ -5,11 +5,6 @@ from openai import OpenAI
 from datetime import datetime
 from rapidfuzz import process
 
-if api_key:
-    print("API Key retrieved successfully!")
-else:
-    print("API Key not found. Please check your environment variable.")
-
 
 # Load JSON data
 def load_json(file_path):
