@@ -3,7 +3,8 @@ name: Run Python Script with Secret
 
 on:
   workflow_dispatch:
-
+env:
+  apiKey :${{ secrets.OPENAI_API_KEY }}
 
 jobs:
   run-python:
