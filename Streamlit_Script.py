@@ -101,7 +101,7 @@ if st.button("Check Infringement") and patent_id and company_name:
             f"Include:\n- Infringement likelihood\n- Relevant claims\n"
             f"- Explanation of why these claims may be relevant to each product's features\n"
         )
-        api_key = ${{ secrets.OPENAI_API_KEY}}
+        api_key = ${{ secrets.OPENAI_API_KEY }}
         client = OpenAI()
         
         chat_completion = client.chat.completions.create(
