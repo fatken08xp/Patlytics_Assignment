@@ -10,6 +10,8 @@ if api_key:
     print("API Key retrieved successfully!")
 else:
     print("API Key not found. Please check your environment variable.")
+
+
 # Load JSON data
 def load_json(file_path):
     with open(file_path) as f:
