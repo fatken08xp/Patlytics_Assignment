@@ -102,8 +102,6 @@ if st.button("Check Infringement") and patent_id and company_name:
             f"- Explanation of why these claims may be relevant to each product's features\n"
         )
         #api_key = os.environ.get("OPENAI_API_KEY")
-        # Set OpenAI API key directly from environment variable
-        openai.api_key = os.getenv("OPENAI_API_KEY")
         client = OpenAI()
         
         chat_completion = client.chat.completions.create(
