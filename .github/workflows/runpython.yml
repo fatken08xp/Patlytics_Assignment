@@ -3,7 +3,8 @@ name: Run Python Script with Secret
 
 on:
   workflow_dispatch:
-
+env:
+  OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
 jobs:
   run-python:
     runs-on: ubuntu-latest
@@ -22,7 +23,5 @@ jobs:
       run: pip install -r requirements.txt
 
     - name: Run Python script
-      env:
-        OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
       run:
         streamlit run Streamlit_Script.py
