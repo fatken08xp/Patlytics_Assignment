@@ -9,9 +9,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 api_key =os.getenv('OPENAI_API_KEY')
-# Ensure the API key is loaded
-if not api_key:
-    raise ValueError("API key not found. Please set the OPENAI_API_KEY environment variable.")
+
     
 # Load JSON data
 def load_json(file_path):
