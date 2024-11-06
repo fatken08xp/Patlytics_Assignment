@@ -5,7 +5,6 @@ from openai import OpenAI
 from datetime import datetime
 from rapidfuzz import process
 
-api_key = os.environ.get("OPENAI_API_KEY")
 if api_key:
     print("API Key retrieved successfully!")
 else:
