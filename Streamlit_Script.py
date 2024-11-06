@@ -5,7 +5,7 @@ from openai import OpenAI
 from datetime import datetime
 from rapidfuzz import process
 
-api_key = os.environ["OPENAI_API_KEY"]
+api_key = os.environ.get("OPENAI_API_KEY")
 
 # Load JSON data
 def load_json(file_path):
