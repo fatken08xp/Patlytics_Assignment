@@ -102,7 +102,7 @@ if st.button("Check Infringement") and patent_id and company_name:
             f"- Explanation of why these claims may be relevant to each product's features\n"
         )
         #api_key = os.environ.get("OPENAI_API_KEY")
-        client = OpenAI()
+        client = OpenAI(api_key=api_key)
         
         chat_completion = client.chat.completions.create(
             model="gpt-4o-mini",
